@@ -16,7 +16,7 @@ module.exports = function(grunt) {
             //files to watch
             bsFiles: {
                 src : [
-                    'styles/scss/*.scss',
+                    'styles/css/*.css',
                     '*.html', 
                     'src/js/bundle.js'
                 ]
