@@ -1,0 +1,52 @@
+html, body 
+{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/***************************************
+	
+				ReactJS 
+			
+***************************************/
+
+#content
+{
+	position: absolute;
+	z-index: 2;
+}
+
+/***************************************
+	
+			Fade in Effect
+			
+***************************************/
+
+.newImage.switch-enter 
+{
+    opacity: 0.01;
+}
+.newImage.switch-enter.switch-enter-active 
+{
+    opacity: 1.0;
+}
+.newImage.switch-leave 
+{
+    /* Completely hide the button while it's being animated and before it's removed from the DOM. */
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+    
+    /* Starting opacity */
+    opacity: 1.0;
+}
+.newImage.switch-leave.switch-leave-active 
+{
+    /* Ending opacity: 
+    Trigger opacity change so the "transitionend" event will fire, causing React to remove from the DOM. */
+    opacity: 0;
+}
+
