@@ -13,7 +13,7 @@ class ReactElement extends React.Component {
 		this.state = {
 						feedElements: {},
 						instagramPost: {
-							comment: "Use the hashtag #sometag and get noticed!", 
+							comment: "Fill in default values at bottom to begin feed. If there isn't a minimum posts met (default 1), it will attempt to pull more from the feed every 5 minutes", 
 							username: "Eric", 
 							image: "http://image-link-archive.meteor.com/images/placeholder-640x480.png",
 						},
@@ -50,14 +50,15 @@ class ReactElement extends React.Component {
 	loadPosts(){
 		this.forceUpdate();
 		let hashtag = ReactDOM.findDOMNode(this.refs.hashtag).value.trim();
-		console.log('trying to search hashtag: ' + hashtag)
+		let minimumFeedElements = parseInt(ReactDOM.findDOMNode(this.refs.minPosts).value.trim());
 		//here make ajax call or get a new list, save inside newestFeedElements, if feed Elements < newestFeedElements, then make feedElemnts = newestFeedElements iff instragramFeedElement === 0 (to ensure we start from the beginning)
 		let instagramURL = `https://api.instagram.com/v1/tags/${hashtag}/media/recent?access_token=1634218815.1fb234f.918a7735e59e47d0aa3761894d1d8cd0&callback=?`;
 		$.ajax({
 			url: instagramURL,
 			dataType: 'json',
 			success: function(data) {
-				if( data.data.length < this.state.minimumFeedElements || data.data.length === 0 ){
+				if( data.data.length < minimumFeedElements || data.data.length === 0 ){
+					console.
 					this.defaultPost();
 				}else{
 					this.setState({
@@ -130,7 +131,12 @@ class ReactElement extends React.Component {
 	submitNewQuery(){
 		this.loadPosts();
 		this.setState({
-			initialized: true
+			initialized: true, 
+			instagramPost: {
+							comment: "Use the hashtag #freddyamy2015 and get noticed!", 
+							username: "Freddy and Amy", 
+							image: "http://image-link-archive.meteor.com/images/placeholder-640x480.png",
+						},
 		})
 	}
 	
@@ -172,6 +178,7 @@ class ReactElement extends React.Component {
 						Hashtag: <input type = "text" ref = 'hashtag' defaultValue = "catsofinstagram" />
 						Time Per Post:* <input type = "text" ref = "timePerPost" defaultValue = '10000' />
 						Time Before Pulling New Feed:* <input type = "text" ref = "timeToPullMorePosts" defaultValue = '10000' />
+						Min Posts: <input type = "text" ref = "minPosts" defaultValue = "1" />
 						<button onClick = {this.submitNewQuery.bind(this)}>Go!</button>
 						*Time in ms, if unsure, leave default values.
 					</div>
