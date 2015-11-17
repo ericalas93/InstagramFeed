@@ -19787,9 +19787,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var _starrynight = require('./starrynight');
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+
+(0, _starrynight.drawing)();
 
 var ReactElement = (function (_React$Component) {
 	_inherits(ReactElement, _React$Component);
@@ -19909,23 +19913,29 @@ var ReactElement = (function (_React$Component) {
 		key: 'render',
 		value: function render() {
 			var className = 'newImage';
+
 			return React.createElement(
-				ReactCSSTransitionGroup,
-				{ transitionName: 'switch', transitionEnterTimeout: 1000, transitionLeaveTimeout: 600 },
+				'div',
+				{ className: 'container' },
 				React.createElement(
 					'div',
-					{ className: className },
-					React.createElement('img', { src: this.state.instagramPost.image, alt: 'Instagram Post Photo' })
+					{ className: 'left' },
+					React.createElement(
+						'div',
+						{ className: 'polaroid' },
+						React.createElement('img', { src: this.state.instagramPost.image, alt: 'Instagram Post Photo' })
+					)
 				),
 				React.createElement(
 					'div',
-					null,
-					this.state.instagramPost.comment
-				),
-				React.createElement(
-					'div',
-					null,
-					this.state.instagramPost.username
+					{ className: 'right' },
+					React.createElement(
+						'div',
+						{ className: 'caption' },
+						this.state.instagramPost.comment,
+						'-',
+						this.state.instagramPost.username
+					)
 				)
 			);
 		}
@@ -19936,4 +19946,37 @@ var ReactElement = (function (_React$Component) {
 
 ReactDOM.render(React.createElement(ReactElement, null), document.getElementById('content'));
 
-},{"react":165,"react-addons-css-transition-group":2,"react-dom":3}]},{},[166]);
+},{"./starrynight":167,"react":165,"react-addons-css-transition-group":2,"react-dom":3}],167:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+function drawing() {
+	var canvas = document.getElementById('starrynight');
+	var canvasContext = canvas.getContext('2d');
+	var xMax = canvas.width = window.screen.availWidth;
+	var yMax = canvas.height = window.screen.availHeight;
+
+	var hmTimes = Math.round(xMax + yMax);
+
+	for (var i = 0; i <= hmTimes; i++) {
+		var randomX = Math.floor(Math.random() * xMax + 1);
+		var randomY = Math.floor(Math.random() * yMax + 1);
+		var randomSize = Math.floor(Math.random() * 2 + 1);
+		var randomOpacityOne = Math.floor(Math.random() * 9 + 1);
+		var randomOpacityTwo = Math.floor(Math.random() * 9 + 1);
+		var randomHue = Math.floor(Math.random() * 360 + 1);
+
+		if (randomSize > 1) {
+			canvasContext.shadowBlur = Math.floor(Math.random() * 15 + 5);
+			canvasContext.shadowColor = "white";
+		}
+		canvasContext.fillStyle = 'hsla(' + randomHue + ', 30%, 80%, .' + (randomOpacityOne + randomOpacityTwo) + ')';
+		canvasContext.fillRect(randomX, randomY, randomSize, randomSize);
+	}
+}
+
+exports.drawing = drawing;
+
+},{}]},{},[166]);

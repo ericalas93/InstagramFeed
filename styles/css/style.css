@@ -1,3 +1,13 @@
+/***************************************
+	
+		SASS Mixins/Variables 
+			
+***************************************/
+/***************************************
+	
+				Default 
+			
+***************************************/
 html, body {
   margin: 0;
   padding: 0;
@@ -12,7 +22,47 @@ html, body {
 ***************************************/
 #content {
   position: absolute;
-  z-index: 2; }
+  z-index: 2;
+  width: 100%; }
+
+.container {
+  width: 100%; }
+
+.left {
+  position: absolute;
+  left: 0px;
+  width: 50%; }
+  .left
+.polaroid {
+    position: relative;
+    width: 35vw;
+    height: 73vh;
+    background-color: white;
+    padding-top: 12px;
+    box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.9), inset 0 0px 2px rgba(0, 0, 0, 0.96);
+    border-radius: 2px;
+    transform: rotate(-2deg);
+    margin-left: 50px;
+    margin-top: 150px; }
+  .left
+img {
+    width: 32vw;
+    height: 60vh;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5), inset 0 10px 50px rgba(0, 0, 0, 0.7);
+    border-radius: 2px;
+    background: rgba(40, 38, 42, 0.5);
+    margin: 1.5vh 1.5vw 0 1.5vw; }
+
+.right {
+  position: absolute;
+  right: 0px;
+  width: 50%; }
+  .right
+.caption {
+    width: 40vw;
+    height: 60vh;
+    color: #fff;
+    background-color: black; }
 
 /***************************************
 	
@@ -37,3 +87,18 @@ html, body {
   /* Ending opacity: 
     Trigger opacity change so the "transitionend" event will fire, causing React to remove from the DOM. */
   opacity: 0; }
+
+/***************************************
+	
+			Starry Night
+				Canvas
+			
+***************************************/
+#starrynight {
+  position: absolute;
+  z-index: 1;
+  background: -webkit-linear-gradient(#00111e 30%, #033d5e);
+  background: -moz-linear-gradient(#00111e 30%, #033d5e);
+  background: -o-linear-gradient(#00111e 30%, #033d5e);
+  background: linear-gradient(#00111e 30%, #033d5e);
+  overflow: hidden; }

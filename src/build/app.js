@@ -3,6 +3,10 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
+import {drawing} from './starrynight';
+
+drawing();
+
 class ReactElement extends React.Component {
 	constructor(){
 		super();
@@ -116,22 +120,31 @@ class ReactElement extends React.Component {
 	
 	render(){	
 		let className = 'newImage';
+
 		return (
 
-				<ReactCSSTransitionGroup transitionName="switch" transitionEnterTimeout={1000} transitionLeaveTimeout={600}>
-					<div className = { className } >
-						<img src = {this.state.instagramPost.image} alt = "Instagram Post Photo" />
+				<div className = {'container'}>
+				
+					<div className = {'left'}>
+						<div className = {'polaroid'}>
+							<img src = {this.state.instagramPost.image} alt = "Instagram Post Photo" />
+						</div>
 					</div>
-					<div>
-						{this.state.instagramPost.comment}
+					
+					<div className = {'right'}>
+						
+						<div className = {'caption'}>
+							{this.state.instagramPost.comment}
+							-{this.state.instagramPost.username}
+						</div>
 					</div>
-					<div>
-						{this.state.instagramPost.username}
-					</div>
-				</ReactCSSTransitionGroup>
+					
+				</div>
+
 		);
 	}
 }
 
 ReactDOM.render(<ReactElement />, document.getElementById('content'));
+
 
