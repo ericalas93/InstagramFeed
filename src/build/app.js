@@ -58,7 +58,6 @@ class ReactElement extends React.Component {
 			dataType: 'json',
 			success: function(data) {
 				if( data.data.length < minimumFeedElements || data.data.length === 0 ){
-					console.
 					this.defaultPost();
 				}else{
 					this.setState({

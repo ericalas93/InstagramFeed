@@ -19855,7 +19855,7 @@ var ReactElement = (function (_React$Component) {
 				dataType: 'json',
 				success: (function (data) {
 					if (data.data.length < minimumFeedElements || data.data.length === 0) {
-						console['this'].defaultPost();
+						this.defaultPost();
 					} else {
 						this.setState({
 							feedElements: data,
