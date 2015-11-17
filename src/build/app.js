@@ -22,20 +22,21 @@ class ReactElement extends React.Component {
 						//how many posts must there be before allowing the slideshow to begin
 						//note if 0 that means that if there is only 1 post, that post will stay on for good
 						minimumFeedElements: 0,
-						//default hastag 
-						hashtag: 'catsofinstagram',
+						//parameters set
+						initialized: false,
 						//defualt time to show each image/post
 						timePerPost: 10000, 
-						//this is to be used with defaultPost
+						//this is to be used with defaultPost; default 5 minutes
 						timeToReload: 300000, 
-						//to be used inside handleUpdate when the oldtimestamp is expired
+						//to be used inside handleUpdate when the oldtimestamp is expired, default 10 seconds
 						timeToPullMorePosts: 10000,
 					 };
 		
 	}
 	
 	componentDidMount() {
-		this.loadPosts();
+		
+		//this.loadPosts();
 	}
 	
 	defaultPost(){
@@ -47,8 +48,11 @@ class ReactElement extends React.Component {
 	}
 	
 	loadPosts(){
+		this.forceUpdate();
+		let hashtag = ReactDOM.findDOMNode(this.refs.hashtag).value.trim();
+		console.log('trying to search hashtag: ' + hashtag)
 		//here make ajax call or get a new list, save inside newestFeedElements, if feed Elements < newestFeedElements, then make feedElemnts = newestFeedElements iff instragramFeedElement === 0 (to ensure we start from the beginning)
-		let instagramURL = `https://api.instagram.com/v1/tags/${this.state.hashtag}/media/recent?access_token=1634218815.1fb234f.918a7735e59e47d0aa3761894d1d8cd0&callback=?`;
+		let instagramURL = `https://api.instagram.com/v1/tags/${hashtag}/media/recent?access_token=1634218815.1fb234f.918a7735e59e47d0aa3761894d1d8cd0&callback=?`;
 		$.ajax({
 			url: instagramURL,
 			dataType: 'json',
@@ -87,6 +91,10 @@ class ReactElement extends React.Component {
 			username: instagramPostUsername,
 			image: instagramPostImage,
 		}
+		
+		//default parameters are set
+		let timeToPullMorePosts = parseInt(ReactDOM.findDOMNode(this.refs.timeToPullMorePosts).value.trim());
+		let timePerPost = parseInt(ReactDOM.findDOMNode(this.refs.timePerPost).value.trim());
 				
 		this.setState({
 			//here we are taking the feed element in state, seeing if we've been though all the posts, if we have reset counter and cycle through all the images again
@@ -105,21 +113,41 @@ class ReactElement extends React.Component {
 			//this is becuase inside the AJAX call, we call handleUpdate right away after a successfull pull
 			setTimeout(()=> {
 				this.loadPosts()
-			}, this.state.timeToPullMorePosts)
+			}, timeToPullMorePosts)
 		}else
 		{
 			//we call handleUpdate again after 10 seconds to load the new image ( a new image is loaded because of how we update state.currentInstagramElement
 			setTimeout(() => {
 				this.handleUpdate();
-			}, this.state.timePerPost);
+			}, timePerPost);
 		}
 		
 
 	}
-
 	
+	
+	
+	submitNewQuery(){
+		this.loadPosts();
+		this.setState({
+			initialized: true
+		})
+	}
+	
+
 	render(){	
 		let className = 'newImage';
+		let styles = {
+			invisible:
+			{
+				visibility: 'hidden',
+			},
+			visible:
+			{
+				visibility: 'visible'
+			}
+			
+		}
 
 		return (
 
@@ -135,8 +163,17 @@ class ReactElement extends React.Component {
 						
 						<div className = {'caption'}>
 							{this.state.instagramPost.comment}
-							-{this.state.instagramPost.username}
+							<br />
+							<span className = {'username'}>-{this.state.instagramPost.username}</span>
 						</div>
+					</div>
+					
+					<div className = {'parameter-changes'} style = {!this.state.initialized ? styles.visible : styles.invisible }>
+						Hashtag: <input type = "text" ref = 'hashtag' defaultValue = "catsofinstagram" />
+						Time Per Post:* <input type = "text" ref = "timePerPost" defaultValue = '10000' />
+						Time Before Pulling New Feed:* <input type = "text" ref = "timeToPullMorePosts" defaultValue = '10000' />
+						<button onClick = {this.submitNewQuery.bind(this)}>Go!</button>
+						*Time in ms, if unsure, leave default values.
 					</div>
 					
 				</div>

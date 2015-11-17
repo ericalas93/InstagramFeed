@@ -26,6 +26,31 @@ html, body
   width: 100%;
   height: 100%;
   overflow: hidden;
+  font-family: 'Dancing Script', cursive;
+}
+
+/***************************************
+	
+				Content 
+			
+***************************************/
+
+.banner-wrapper
+{
+	position: absolute;
+	z-index: 3;
+	color: #fff;
+	width: 800px;
+	margin-left: 300px;
+	margin-top: -50px;
+}
+.title-banner
+{
+	font-style: italic;
+	font-weight: 700;
+	font-size: 80px;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
 }
 
 
@@ -46,7 +71,27 @@ html, body
 .container 
 {
 	width: 100%;
+	height: 100%;
+	
+	.parameter-changes 
+	{
+		position: absolute;
+		z-index: 4;
+		height: 5vh;
+		width: 100%;
+		right: 0;
+		top: 95vh;
+		background-color: rgba(255, 255, 255, 0.5);
+		font-family: serif;
+		border-radius: 2px;
+		input
+		{
+			margin: 10px;
+		}
+	}
 }
+
+
 
 .left
 {
@@ -64,7 +109,7 @@ html, body
 		border-radius: 2px;
 		transform: rotate(-2deg);
 		margin-left: 50px;
-		margin-top: 150px;
+		margin-top: 130px;
 	}
 	img
 	{
@@ -86,11 +131,29 @@ html, body
 	.caption
 	{
 		width: 40vw;
-		height: 60vh;
-		color: #fff;
-		background-color: black;
+		min-height: 35vh;
+		color: #000;
+		background-color: rgba(255, 255, 255, 0.5);
+		margin-top: 250px;
+		margin-left: 5%;
+		padding: 28px;
+		font-size: 30px;
+		line-height: 1.6em;
+		border-radius: 2px;
+		font-weight: 400;
+		box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.5), inset 0 0px 2px rgba(0, 0, 0, 0.96);
+
 	}
+	
+	.username
+	{
+		float: right;
+	}
+	
+	
 }
+
+
 
 /***************************************
 	
